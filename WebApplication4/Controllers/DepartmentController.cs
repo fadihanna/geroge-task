@@ -3,40 +3,39 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using WebApplication4.Models;
+//using WebApplication4.Models;
+using BusinessLayer;
 
 namespace WebApplication4.Controllers
 {
     public class DepartmentController : Controller
     {
+      
+       DepartmentBusinessLayer departmentBusinessLayer = new DepartmentBusinessLayer();
 
         public ActionResult Index()
         {
-            EmployeeContext employeeContext = new EmployeeContext();
-            List<Department> departments = employeeContext.Departments.ToList();
+
+            List<Department> departments = departmentBusinessLayer.DepartmentList.ToList();
             return View(departments);
         }
 
-
         [HttpGet]
         [ActionName("Create")]
-        public ActionResult Create_Get()
-        {
+        public ActionResult Create()
+        { 
             return View();
         }
 
 
         [HttpPost]
         [ActionName("Create")]
-        public ActionResult Create_Post(Department department)
+        public ActionResult Create(Department department)
         {
-
 
             if (ModelState.IsValid)
             {
-                EmployeeContext employeeContext = new EmployeeContext();
-                employeeContext.Departments.Add(department);
-                employeeContext.SaveChanges();
+                departmentBusinessLayer.AddDepartment(department);
                 return RedirectToAction("Index");
             }
             return View();
@@ -47,24 +46,16 @@ namespace WebApplication4.Controllers
 
         public ActionResult Edit(int id)
         {
-            EmployeeContext employeeContext = new EmployeeContext();
-            Department department = employeeContext.Departments.Single(dep => dep.DepartmentID == id);
-
-
-
+            Department department = departmentBusinessLayer.DepartmentList.Single(dep => dep.DepartmentID == id);
             return View(department);
         }
 
         [HttpPost]
         public ActionResult Edit(Department department)
         {
-            EmployeeContext employeeContext = new EmployeeContext();
-
             if (ModelState.IsValid)
             {
-                employeeContext.Entry(department).State = System.Data.Entity.EntityState.Modified;
-                employeeContext.SaveChanges();
-
+                departmentBusinessLayer.EditDepartment(department);
                 return RedirectToAction("Index");
             }
             return View(department);
@@ -74,17 +65,13 @@ namespace WebApplication4.Controllers
         {
             if (ModelState.IsValid)
             {
-                EmployeeContext employeeContext = new EmployeeContext();
-                Department department = employeeContext.Departments.Find(id);
-                employeeContext.Departments.Remove(department);
-                employeeContext.SaveChanges();
-
+                departmentBusinessLayer.DeleteDepartment(id);
                 return RedirectToAction("Index");
             }
             return View();
         }
 
-       
+
 
     }
 }

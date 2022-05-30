@@ -1,13 +1,12 @@
-﻿@model IEnumerable<WebApplication4.Models.Employee>
+﻿@using BusinessLayer;
+ 
+@model IEnumerable<BusinessLayer.Employee>
 
-@{
-    ViewBag.Title = "Index";
-}
 
-<h2>Employee List</h2>
+<h2>Employees</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Add New Employee", "Create")
 </p>
 <table class="table">
     <tr>
@@ -32,32 +31,33 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.BirthDate)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Title)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Gender)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.DepartmentID)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeID }) |
-          
-            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeID })
-        </td>
-    </tr>
-}
+    @foreach (Employee employee in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => employee.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => employee.BirthDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => employee.Title)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => employee.Gender)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => employee.Notes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => employee.DepartmentID)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = employee.EmployeeID }) |
+
+                @Html.ActionLink("Delete", "Delete", new { id = employee.EmployeeID })
+            </td>
+        </tr>
+    }
 
 </table>

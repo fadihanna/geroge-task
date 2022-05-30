@@ -1,14 +1,10 @@
-﻿@model IEnumerable<WebApplication4.Models.Employee>
+﻿@model IEnumerable<BusinessLayer.Employee>
+@using BusinessLayer
 
-@{
-    ViewBag.Title = "EmployeeDepartment";
-}
 
-<h2>EmployeeDepartment</h2>
+<h2>Employee Department</h2>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
+
 <table class="table">
     <tr>
         <th>
@@ -32,30 +28,30 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
+@foreach (Employee employee in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Name)
+            @Html.DisplayFor(modelItem => employee.Name)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.BirthDate)
+            @Html.DisplayFor(modelItem => employee.BirthDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Title)
+            @Html.DisplayFor(modelItem => employee.Title)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Gender)
+            @Html.DisplayFor(modelItem => employee.Gender)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Notes)
+            @Html.DisplayFor(modelItem => employee.Notes)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DepartmentID)
+            @Html.DisplayFor(modelItem => employee.DepartmentID)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.EmployeeID }) |
+            @Html.ActionLink("Edit", "Edit", new { id=employee.EmployeeID }) |
           
-            @Html.ActionLink("Delete", "Delete", new { id=item.EmployeeID })
+            @Html.ActionLink("Delete", "Delete", new { id=employee.EmployeeID })
         </td>
     </tr>
 }
