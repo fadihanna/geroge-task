@@ -29,7 +29,6 @@ namespace WebApplication4.Controllers
             DepartmentBusinessLayer departmentBusinessLayer = new DepartmentBusinessLayer();
 
             ViewBag.DepartmentID = new SelectList(departmentBusinessLayer.DepartmentList, "DepartmentID", "DepartmentName", employee.DepartmentID);
-
             return View();
         }
 
@@ -42,13 +41,12 @@ namespace WebApplication4.Controllers
             {
                 ModelState.AddModelError("Name", "Name already exists");
             }
-
+                
 
             if (ModelState.IsValid)
             {
                 employeeBusinessLayer.AddEmployee(employee);
-               
-                return RedirectToAction("Index");
+                 return RedirectToAction("Index");         
             }
 
             DepartmentBusinessLayer departmentBusinessLayer = new DepartmentBusinessLayer();
@@ -57,7 +55,6 @@ namespace WebApplication4.Controllers
             return View();
         
         }
-
 
         [HttpGet]
         [ActionName("Edit")]
@@ -111,7 +108,7 @@ namespace WebApplication4.Controllers
 
         public ActionResult EmployeeDepartment(int departmentID)
         {
-
+            
             List<Employee> employees = employeeBusinessLayer.EmployeeList.Where(x => x.DepartmentID == departmentID).ToList();
             return View(employees);
         }

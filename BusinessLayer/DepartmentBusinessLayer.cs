@@ -37,12 +37,9 @@ namespace BusinessLayer
                     return departments;
                 }
 
-                 
-             
-             
+                   
              }
         
-
        }
 
         public void AddDepartment(Department department)
@@ -106,7 +103,8 @@ namespace BusinessLayer
 
             }
         }
-        }
+       
+    }
     
     }
 
