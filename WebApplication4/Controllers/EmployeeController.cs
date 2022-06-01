@@ -13,12 +13,13 @@ namespace WebApplication4.Controllers
      
         EmployeeBusinessLayer employeeBusinessLayer = new EmployeeBusinessLayer();
 
+
         [ActionName("Index")]
         public ActionResult Index()
         {
-            List<Employee> employees = employeeBusinessLayer.EmployeeList.ToList();
+            List<Employee> employees = employeeBusinessLayer.EmployeeSelect.ToList();
             return View(employees);
-   
+
         }
 
         [HttpGet]
@@ -28,7 +29,7 @@ namespace WebApplication4.Controllers
             Employee employee = new Employee();
             DepartmentBusinessLayer departmentBusinessLayer = new DepartmentBusinessLayer();
 
-            ViewBag.DepartmentID = new SelectList(departmentBusinessLayer.DepartmentList, "DepartmentID", "DepartmentName", employee.DepartmentID);
+            ViewBag.DepartmentID = new SelectList(departmentBusinessLayer.DepartmentSelect, "DepartmentID", "DepartmentName", employee.DepartmentID);
             return View();
         }
 
@@ -37,7 +38,7 @@ namespace WebApplication4.Controllers
         public ActionResult Create(Employee employee)
         {
 
-            if (employeeBusinessLayer.EmployeeList.Any(x => x.Name == employee.Name))
+            if (employeeBusinessLayer.EmployeeSelect.Any(x => x.Name == employee.Name))
             {
                 ModelState.AddModelError("Name", "Name already exists");
             }
@@ -46,11 +47,12 @@ namespace WebApplication4.Controllers
             if (ModelState.IsValid)
             {
                 employeeBusinessLayer.AddEmployee(employee);
-                 return RedirectToAction("Index");         
+             
+                
             }
 
             DepartmentBusinessLayer departmentBusinessLayer = new DepartmentBusinessLayer();
-            ViewBag.DepartmentID = new SelectList(departmentBusinessLayer.DepartmentList, "DepartmentID", "DepartmentName", employee.DepartmentID);
+            ViewBag.DepartmentID = new SelectList(departmentBusinessLayer.DepartmentSelect, "DepartmentID", "DepartmentName", employee.DepartmentID);
 
             return View();
         
@@ -61,9 +63,10 @@ namespace WebApplication4.Controllers
         public ActionResult Edit(int id)
         {
             DepartmentBusinessLayer departmentBusinessLayer = new DepartmentBusinessLayer();
-            Employee employee = employeeBusinessLayer.EmployeeList.Single(emp => emp.EmployeeID == id);
-
-            ViewBag.DepartmentID = new SelectList(departmentBusinessLayer.DepartmentList, "DepartmentID", "DepartmentName", employee.DepartmentID);
+           
+            Employee employee = employeeBusinessLayer.EmployeeSelect.Single(emp => emp.EmployeeID == id);
+           
+            ViewBag.DepartmentID = new SelectList(departmentBusinessLayer.DepartmentSelect, "DepartmentID", "DepartmentName", employee.DepartmentID);
 
             return View(employee);
         }
@@ -72,15 +75,16 @@ namespace WebApplication4.Controllers
         [ActionName("Edit")]
         public ActionResult Edit(Employee employee)
         {
-
+            
             if (ModelState.IsValid)
             {
-                employeeBusinessLayer.EditEmployee(employee);
+                employeeBusinessLayer.UpdateEmployee(employee);
+               
                 return RedirectToAction("Index");
             }
             DepartmentBusinessLayer departmentBusinessLayer = new DepartmentBusinessLayer();
 
-            ViewBag.DepartmentID = new SelectList(departmentBusinessLayer.DepartmentList, "DepartmentID", "DepartmentName", employee.DepartmentID);
+            ViewBag.DepartmentID = new SelectList(departmentBusinessLayer.DepartmentSelect, "DepartmentID", "DepartmentName", employee.DepartmentID);
 
             return View();
         }
@@ -91,6 +95,7 @@ namespace WebApplication4.Controllers
             if (ModelState.IsValid)
             {
                 EmployeeBusinessLayer employeeBusinessLayer = new EmployeeBusinessLayer();
+               
                 employeeBusinessLayer.DeleteEmployee(id);
 
                 return RedirectToAction("Index");
@@ -109,7 +114,7 @@ namespace WebApplication4.Controllers
         public ActionResult EmployeeDepartment(int departmentID)
         {
             
-            List<Employee> employees = employeeBusinessLayer.EmployeeList.Where(x => x.DepartmentID == departmentID).ToList();
+            List<Employee> employees = employeeBusinessLayer.EmployeeSelect.Where(x => x.DepartmentID == departmentID).ToList();
             return View(employees);
         }
 

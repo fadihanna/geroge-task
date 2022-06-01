@@ -166,3 +166,5 @@ C:\Users\bless\source\repos\geroge-task\WebApplication4\obj\Debug\WebApplication
 C:\Users\bless\source\repos\geroge-task\WebApplication4\obj\Debug\WebApplication4.pdb
 C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\BusinessLayer.dll
 C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\BusinessLayer.pdb
+C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\LinqToSqlRetry.dll
+C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\BusinessLayer.dll.config

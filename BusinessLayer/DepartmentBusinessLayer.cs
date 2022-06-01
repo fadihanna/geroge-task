@@ -1,111 +1,70 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Configuration;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Configuration;
 using System.Data;
- 
+using System.Data.SqlClient;
+using System.Data.Entity;
 
 namespace BusinessLayer
 {
     public class DepartmentBusinessLayer
-    {      
-        public List<Department> DepartmentList
+    {
+
+
+        public List<Department> DepartmentSelect
         {
-           get
+            get
             {
-                string connectionString = ConfigurationManager.ConnectionStrings["EmployeeContext"].ConnectionString;
+                Database.SetInitializer<DBContext>(null);
                 List<Department> departments = new List<Department>();
-                 
-                using (SqlConnection con = new SqlConnection(connectionString))
-                {
-                    SqlCommand cmd = new SqlCommand("Select* From Department;",con);
-                    cmd.CommandType = CommandType.Text;
-                    con.Open();
-                    SqlDataReader rdr = cmd.ExecuteReader();
+                DBContext departmentContext = new DBContext();
 
-                    while (rdr.Read()) // READ COLUMNS FROM DATABASE
-                    {
-                        Department department = new Department();  
-                        department.DepartmentID = Convert.ToInt32(rdr["DepartmentID"]);
-                        department.DepartmentName = Convert.ToString(rdr["DepartmentName"]);
-                        departments.Add(department);
-                        
-                    }
-                    return departments;
-                }
+                var lst = from n in departmentContext.Departments select n;
+                departments = lst.ToList();
+                return departments;
+            }
 
-                   
-             }
-        
-       }
+        }
 
         public void AddDepartment(Department department)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["EmployeeContext"].ConnectionString;
 
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("Insert into Department (DepartmentName) Values (@DepartmentName);", con);
+            DBContext departmentContext = new DBContext();
 
-                SqlParameter paramDepartmentName = new SqlParameter();
-                paramDepartmentName.ParameterName = "@DepartmentName";
-                paramDepartmentName.Value = department.DepartmentName;
-                cmd.Parameters.Add(paramDepartmentName);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-
-            }
+            departmentContext.Departments.Add(department);
+            departmentContext.SaveChanges();
 
         }
-    
+
+
         public void DeleteDepartment(int id)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["EmployeeContext"].ConnectionString;
 
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("Delete From Department Where DepartmentID = @DepartmentID", con);
-                SqlParameter paramDepartmentID = new SqlParameter();
-                paramDepartmentID.ParameterName = "@DepartmentID";
-                paramDepartmentID.Value = id;
-                cmd.Parameters.Add(paramDepartmentID);
-
-                con.Open();
-                cmd.ExecuteNonQuery();
-            }
+            DBContext departmentContext = new DBContext();
+            var delete = (from p in departmentContext.Departments where p.DepartmentID == id select p).SingleOrDefault();
+            departmentContext.Departments.Remove(delete);
+            departmentContext.SaveChanges();
         }
 
-        public void EditDepartment(Department department)
+        public void UpdateDepartment(Department department)
         {
-            string connectionString = ConfigurationManager.ConnectionStrings["EmployeeContext"].ConnectionString;
+            DBContext departmentContext = new DBContext();
+            
+            departmentContext.Entry(department).State = System.Data.Entity.EntityState.Modified;
+            departmentContext.SaveChanges();
 
-            using (SqlConnection con = new SqlConnection(connectionString))
-            {
-                SqlCommand cmd = new SqlCommand("Update Department Set DepartmentName = @DepartmentName Where DepartmentID = @DepartmentID", con);
 
-                SqlParameter paramDepartmentID = new SqlParameter();
-                paramDepartmentID.ParameterName = "@DepartmentID";
-                paramDepartmentID.Value = department.DepartmentID;
-                cmd.Parameters.Add(paramDepartmentID);
-
-                SqlParameter paramDepartmentName = new SqlParameter();
-                paramDepartmentName.ParameterName = "@DepartmentName";
-                paramDepartmentName.Value = department.DepartmentName;
-                cmd.Parameters.Add(paramDepartmentName);
-
-             
-                con.Open();
-                cmd.ExecuteNonQuery();
-
-            }
         }
-       
-    }
-    
+
+
+
     }
 
+
+
+
+}
 

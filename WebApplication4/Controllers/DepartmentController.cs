@@ -16,7 +16,7 @@ namespace WebApplication4.Controllers
         public ActionResult Index()
         {
 
-            List<Department> departments = departmentBusinessLayer.DepartmentList.ToList();
+            List<Department> departments = departmentBusinessLayer.DepartmentSelect.ToList();
             return View(departments);
         }
 
@@ -46,7 +46,7 @@ namespace WebApplication4.Controllers
 
         public ActionResult Edit(int id)
         {
-            Department department = departmentBusinessLayer.DepartmentList.Single(dep => dep.DepartmentID == id);
+            Department department = departmentBusinessLayer.DepartmentSelect.Single(dep => dep.DepartmentID == id);
             return View(department);
         }
 
@@ -55,7 +55,7 @@ namespace WebApplication4.Controllers
         {
             if (ModelState.IsValid)
             {
-                departmentBusinessLayer.EditDepartment(department);
+                departmentBusinessLayer.UpdateDepartment(department);
                 return RedirectToAction("Index");
             }
             return View(department);
