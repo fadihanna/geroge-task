@@ -1,6 +1,7 @@
-﻿@using BusinessLayer;
- 
-@model IEnumerable<BusinessLayer.Employee>
+﻿@using PagedList;
+@using PagedList.Mvc;
+
+@model IPagedList<BusinessLayer.Employee>
 
 
 <h2>Employees</h2>
@@ -11,27 +12,28 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            @Html.DisplayNameFor(model => model.First().Name)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.BirthDate)
+            @Html.DisplayNameFor(model => model.First().BirthDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Title)
+            @Html.DisplayNameFor(model => model.First().Title)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Gender)
+            @Html.DisplayNameFor(model => model.First().Gender)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Notes)
+            @Html.DisplayNameFor(model => model.First().Notes)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DepartmentID)
+            @Html.DisplayNameFor(model => model.First().DepartmentID)
         </th>
         <th></th>
     </tr>
 
-    @foreach (Employee employee in Model)
+
+    @foreach (var employee in Model)
     {
         <tr>
             <td>
@@ -53,6 +55,8 @@
                 @Html.DisplayFor(modelItem => employee.DepartmentID)
             </td>
             <td>
+
+
                 @Html.ActionLink("Edit", "Edit", new { id = employee.EmployeeID }) |
 
                 @Html.ActionLink("Delete", "Delete", new { id = employee.EmployeeID })
@@ -61,3 +65,9 @@
     }
 
 </table>
+
+<tr>
+    Number of Employees :  @ViewBag.countEmployees
+</tr>
+
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page }))

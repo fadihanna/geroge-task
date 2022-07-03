@@ -10,17 +10,17 @@ using System.Data.Entity;
 
 namespace BusinessLayer
 {
+
     public class DepartmentBusinessLayer
     {
-
+        DBContext departmentContext = new DBContext();
 
         public List<Department> DepartmentSelect
         {
             get
             {
-                Database.SetInitializer<DBContext>(null);
+
                 List<Department> departments = new List<Department>();
-                DBContext departmentContext = new DBContext();
 
                 var lst = from n in departmentContext.Departments select n;
                 departments = lst.ToList();
@@ -29,35 +29,34 @@ namespace BusinessLayer
 
         }
 
-        public void AddDepartment(Department department)
+        public int AddDepartment(Department department)
         {
 
-            DBContext departmentContext = new DBContext();
-
             departmentContext.Departments.Add(department);
-            departmentContext.SaveChanges();
+            return departmentContext.SaveChanges();
 
         }
 
-
+        public Department GetDeptDepartmentById(int id)
+        {
+            return departmentContext.Departments.Where(x => x.DepartmentID == id).FirstOrDefault();
+        }
         public void DeleteDepartment(int id)
         {
 
-            DBContext departmentContext = new DBContext();
-            var delete = (from p in departmentContext.Departments where p.DepartmentID == id select p).SingleOrDefault();
-            departmentContext.Departments.Remove(delete);
+            var department = (from p in departmentContext.Departments where p.DepartmentID == id select p).FirstOrDefault();
+            departmentContext.Departments.Remove(department);
             departmentContext.SaveChanges();
         }
 
         public void UpdateDepartment(Department department)
         {
-            DBContext departmentContext = new DBContext();
-            
-            departmentContext.Entry(department).State = System.Data.Entity.EntityState.Modified;
+
+            departmentContext.Entry(department).State = System.Data.Entity.EntityState.Modified; // gets state of entity. modified state means the entity has changed
             departmentContext.SaveChanges();
 
-
         }
+
 
 
 

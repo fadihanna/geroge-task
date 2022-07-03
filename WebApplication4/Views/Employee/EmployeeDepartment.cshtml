@@ -22,9 +22,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Notes)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.DepartmentID)
-        </th>
+       
         <th></th>
     </tr>
 
@@ -45,9 +43,7 @@
         <td>
             @Html.DisplayFor(modelItem => employee.Notes)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => employee.DepartmentID)
-        </td>
+       
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=employee.EmployeeID }) |
           

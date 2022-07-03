@@ -10,20 +10,19 @@ namespace WebApplication4.Controllers
 {
     public class DepartmentController : Controller
     {
-      
-       DepartmentBusinessLayer departmentBusinessLayer = new DepartmentBusinessLayer();
+
+        DepartmentBusinessLayer departmentBusinessLayer = new DepartmentBusinessLayer();
 
         public ActionResult Index()
         {
-
             List<Department> departments = departmentBusinessLayer.DepartmentSelect.ToList();
             return View(departments);
         }
 
         [HttpGet]
-        [ActionName("Create")]
+        [ActionName("Create")] // test push
         public ActionResult Create()
-        { 
+        {
             return View();
         }
 
@@ -46,7 +45,7 @@ namespace WebApplication4.Controllers
 
         public ActionResult Edit(int id)
         {
-            Department department = departmentBusinessLayer.DepartmentSelect.Single(dep => dep.DepartmentID == id);
+            Department department = departmentBusinessLayer.GetDeptDepartmentById(id);
             return View(department);
         }
 

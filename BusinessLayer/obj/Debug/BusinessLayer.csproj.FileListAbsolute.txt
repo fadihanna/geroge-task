@@ -11,3 +11,7 @@ C:\Users\bless\source\repos\geroge-task\BusinessLayer\bin\Debug\LinqToSqlRetry.d
 C:\Users\bless\source\repos\geroge-task\BusinessLayer\bin\Debug\EntityFramework.xml
 C:\Users\bless\source\repos\geroge-task\BusinessLayer\bin\Debug\EntityFramework.SqlServer.xml
 C:\Users\bless\source\repos\geroge-task\BusinessLayer\obj\Debug\BusinessLayer.csproj.CopyComplete
+C:\Users\bless\source\repos\geroge-task\BusinessLayer\bin\Debug\PagedList.dll
+C:\Users\bless\source\repos\geroge-task\BusinessLayer\bin\Debug\PagedList.xml
+C:\Users\bless\source\repos\geroge-task\BusinessLayer\bin\Debug\PagedList.Mvc.dll
+C:\Users\bless\source\repos\geroge-task\BusinessLayer\bin\Debug\PagedList.Mvc.xml

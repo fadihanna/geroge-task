@@ -168,3 +168,7 @@ C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\BusinessLayer.dll
 C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\BusinessLayer.pdb
 C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\LinqToSqlRetry.dll
 C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\BusinessLayer.dll.config
+C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\PagedList.dll
+C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\PagedList.xml
+C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\PagedList.Mvc.dll
+C:\Users\bless\source\repos\geroge-task\WebApplication4\bin\PagedList.Mvc.xml
